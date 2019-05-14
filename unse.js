@@ -17,15 +17,27 @@ app.get('/', function(req,res){
     rq(options)
         .then(function(body){
 
+
+            options = {
+                method: 'post',
+                uri: 'https://hooks.slack.com/services/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',
+                body: {
+                    text: "JSON.stringify(retData);"
+                },
+                json: true
+            };
+
             const retData = body.replace('window.__jindo2_callback._fortune_my_0(','').replace(');','').replace(/\s([A-z]+)\s?:/g,'"$1":').replace('\n','');
             const jsonData =  JSON.parse(retData);
+            const result = JSON.stringify(retData);
 
-            res.send(jsonData);
-            console.log('--------------------------------------');
-            console.log(jsonData.result.day.content[0].keyword);
-            console.log();
-            console.log(jsonData.result.day.content[0].desc);
-            console.log('--------------------------------------');
+            console.log(result);
+            res.send(jsonData.result.day.content);
+            // console.log('--------------------------------------');
+            // console.log(jsonData.result.day.content[0].keyword);
+            // console.log();
+            // console.log(jsonData.result.day.content[0].desc);
+            // console.log('--------------------------------------');
             return rq(options);
         })
 });
