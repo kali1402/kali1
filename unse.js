@@ -1,7 +1,9 @@
 const express = require('express');
 const rq = require('request-promise');
 const app = express();
-const port = 3000;
+const port = 3001;
+var Slack = require('slack-node');
+
 
 app.get('/', function(req,res){
 
@@ -18,29 +20,39 @@ app.get('/', function(req,res){
         .then(function(body){
 
 
-            options = {
-                method: 'post',
-                uri: 'https://hooks.slack.com/services/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',
-                body: {
-                    text: "JSON.stringify(retData);"
-                },
-                json: true
-            };
+            webhookUri = "https://hooks.slack.com/services/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";
+            
+            slack = new Slack();
+            slack.setWebhook(webhookUri);            
 
-            const retData = body.replace('window.__jindo2_callback._fortune_my_0(','').replace(');','').replace(/\s([A-z]+)\s?:/g,'"$1":').replace('\n','');
-            const jsonData =  JSON.parse(retData);
-            const result = JSON.stringify(retData);
+            const GetData = body.replace('window.__jindo2_callback._fortune_my_0(','').replace('\n','').replace(');','').replace(/\s([A-z]+)\s?:/g,'"$1":');
 
-            console.log(result);
-            res.send(jsonData.result.day.content);
-            // console.log('--------------------------------------');
-            // console.log(jsonData.result.day.content[0].keyword);
-            // console.log();
-            // console.log(jsonData.result.day.content[0].desc);
-            // console.log('--------------------------------------');
-            return rq(options);
+            const JsonData = JSON.parse(GetData);
+            
+            res.send(JsonData.result.day.content[0].desc);
+            const name = JsonData.result.day.content[0].name;
+            const desc = JsonData.result.day.content[0].desc;
+            console.log(JsonData.result.day.title);
+            console.log("-------------------총운---------------------");
+            console.log(JsonData.result.day.content[0].name);
+            console.log(JsonData.result.day.content[0].keyword);
+            console.log(JsonData.result.day.content[0].desc);
+            console.log("-----------------상세정보-------------------");
+            console.log(JsonData.result.userData.year);
+            console.log(JsonData.result.userData.constellation);
+            
+            slack.webhook({
+                channel: "#2019_도제학생방",
+                icon_emoji: ":slack:",
+                username: "Slack",
+                text: `\`Kali 의  ${name} \`\n\n> ${desc}`
+            }, function(err, response) {
+                console.log(response);
+            });
+            
         })
 });
+
 app.listen(port, function(){
     console.log('네이버 오늘의 운세');
 })
