@@ -9,6 +9,9 @@ app.get('/', function(req,res){
 const options = {
     method: 'get',
     uri: 'http://www.samil.hs.kr/main.php'
+    body: {
+        
+    }
 };
 
     rq(options)
