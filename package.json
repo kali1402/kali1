@@ -1,0 +1,27 @@
+{
+  "name": "kali1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bob.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.16.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "slack-node": "^0.1.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kali1402/kali1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kali1402/kali1/issues"
+  },
+  "homepage": "https://github.com/kali1402/kali1#readme"
+}

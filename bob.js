@@ -6,19 +6,28 @@ const port = 3000;
 
 app.get('/', function(req,res){
 
-const options = {
-    method: 'get',
-    uri: 'http://www.samil.hs.kr/main.php'
-    body: {
-        .
-    }
-};
+    let options = {
+        method: 'GET',
+        uri: 'http://www.samil.hs.kr/main.php?menugrp=060401&master=meal2&act=list&SearchYear=2019&SearchMonth=05&SearchDay=20#diary_list',
+        headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36'
+        },
+        // form: {
+        //   menugrp:'030300',
+        //   master:'meal2',
+        //   act:'list',
+        //   SearchYear:'2019',
+        //   SearchMonth:'05',
+        //   SearchDay:'20'
+        // },
+        // json: false
+    };
 
     rq(options)
         .then(function(body){
             const $ = cheerio.load(body);
-            // const carriers = $('div#meal_content col-md-7 div#meal_table table caption#visible tbody tr td');
-            res.send(body);
+            const carriers = $('');
+            res.send(carriers);
         });
 })
 
