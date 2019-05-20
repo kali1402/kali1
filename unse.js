@@ -21,19 +21,19 @@ app.get('/', function(req, res){
     rq(options)
     .then(function(body){
         
-        let body2 = body.replace('window.__jindo2_callback._fortune_my_0(','').replace(');','').replace(/\s([A-z]+)\s?:/g,'"$1":').replace('\n','');      
+        let GetData = body.replace('window.__jindo2_callback._fortune_my_0(','').replace(');','').replace(/\s([A-z]+)\s?:/g,'"$1":').replace('\n','');      
             
-        const jsonData = JSON.parse(body2);
+        const jsonData = JSON.parse(GetData);
         
         const title = jsonData.result.day.content[0].keyword.replace(/<([^>]+)>/g, "");
         let viewTable = `
-[ Kali의 오늘의 운세 ]
+\`\`\`[ Kali의 오늘의 운세 ]\`\`\`
 *${title}*
         `;
         for (let index = 0; index < 5; index++) {
             viewTable += `
 
-*\`\`\`==================================================${jsonData.result.day.content[index].name}==================================================\`\`\`*
+*======================================== ${jsonData.result.day.content[index].name} ========================================\`\`\`*
 \>*\`${jsonData.result.day.content[index].desc}\`*
 
 `;
