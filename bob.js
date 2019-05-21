@@ -8,7 +8,7 @@ app.get('/', function(req,res){
 
     let options = {
         method: 'GET',
-        uri: 'http://www.samil.hs.kr/main.php?menugrp=060401&master=meal2&act=list&SearchYear=2019&SearchMonth=05&SearchDay=20#diary_list',
+        uri: 'http://www.samil.hs.kr/main.php?menugrp=060401&master=meal2&act=list',
         headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36'
         },
@@ -27,7 +27,8 @@ app.get('/', function(req,res){
         .then(function(body){
             const $ = cheerio.load(body);
             const carriers = $('');
-            res.send(carriers);
+            console.log(body);
+            res.send(body);
         });
 })
 
